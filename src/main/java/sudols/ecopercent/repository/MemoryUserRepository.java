@@ -15,9 +15,10 @@ public class MemoryUserRepository implements UserRepository {
 
 
     @Override
-    public void save(UserPostDto user) {
+    public Long save(User user) {
         user.setUserId(sequeunce++);
-        store.put(user.getUserId(), user.toEntity());
+        store.put(user.getUserId(), user);
+        return user.getUserId();
     }
 
     @Override
@@ -32,7 +33,7 @@ public class MemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public void update(Long userId, UserPatchDto newUserData) {
+    public void update(Long userId, User newUserData) {
         String nickname = newUserData.getNickname();
         String profileImage = newUserData.getProfileImage();
         String profileMessage = newUserData.getProfileMessage();
@@ -46,5 +47,10 @@ public class MemoryUserRepository implements UserRepository {
     @Override
     public void delete(Long userId) {
         store.remove(userId);
+    }
+
+    @Override
+    public void clearStore() {
+        store.clear();
     }
 }

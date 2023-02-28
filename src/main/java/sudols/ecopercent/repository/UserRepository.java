@@ -8,13 +8,15 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    void save(UserPostDto user);
+    Long save(User user);
 
     Optional<User> findById(Long id);
 
     Optional<User> findByEmail(String email);
 
-    void update(Long userId, UserPatchDto newUserData);
+    void update(Long userId, User newUserData);
 
     void delete(Long userId);
+
+    void clearStore();
 }

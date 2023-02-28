@@ -21,8 +21,7 @@ public class UserService {
 
     public Long join(UserPostDto user) {
         validateDuplicateUser(user);
-        userRepository.save(user);
-        return user.getUserId();
+        return userRepository.save(user.toEntity());
     }
 
     private void validateDuplicateUser(UserPostDto user) {
@@ -37,7 +36,7 @@ public class UserService {
     }
 
     public void updateProfile(Long userId, UserPatchDto newUserData) {
-        userRepository.update(userId, newUserData);
+        userRepository.update(userId, newUserData.toEntity());
     }
 
     public void deleteOne(Long userId) {
